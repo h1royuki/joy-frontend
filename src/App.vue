@@ -1,27 +1,19 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <router-view/>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import HelloWorld from "./components/HelloWorld.vue";
+<style lang="scss">
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-@Options({
-  components: {
-    HelloWorld
-  }
-})
-export default class App extends Vue {}
-</script>
+    html, body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+    }
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    a {
+        text-decoration: none;
+        color: #4f4f4f;
+    }
 </style>
