@@ -30,7 +30,6 @@
             }
         },
         created() {
-
             window.addEventListener('scroll', this.handleScroll)
             this.handler();
         }
@@ -41,6 +40,7 @@
     .infinity-scroll {
         display: flex;
         flex-direction: column;
+        padding: 20px 0;
         width: 100%;
         align-items: center;
 

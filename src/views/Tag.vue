@@ -1,5 +1,6 @@
 <template>
-    <div v-if="page" class="page">
+    <headr :text="'Тег: ' + $route.params.tagId" />
+    <div v-if="page" class="tagsPage">
         <div v-for="(post, index) in page._posts" :key="index">
             <post :post="post"></post>
         </div>
@@ -11,10 +12,12 @@
     import Post from '../components/Post.vue'
     import api from '../modules/api.js'
     import InfinityScroll from "../components/InfinityScroll";
+    import Headr from "../components/Headr";
 
     export default {
-        name: 'Home',
+        name: 'User',
         components: {
+            Headr,
             Post,
             InfinityScroll
         },
@@ -32,16 +35,21 @@
         },
         methods: {
             loadPosts() {
-                this.isLoading = true;
-                const page = this.page ? this.page._nextPage ? this.page._nextPage : 0 : 0;
+                const tagName = this.$route.params.tagId;
 
-                api.get('/page/' + page).then(res => {
-                    this.page = res.data;
-                    this.isLoading = false;
-                }).catch(e => {
-                    console.log(e);
-                    this.isLoading = false;
-                })
+                if(tagName) {
+                    this.isLoading = true;
+                    const page = this.page ? this.page._nextPage ? this.page._nextPage : 0 : 0;
+                    const url = '/tag/' + tagName + '/' + page;
+
+                    api.get(url).then(res => {
+                        this.page = res.data;
+                        this.isLoading = false;
+                    }).catch(e => {
+                        console.log(e);
+                        this.isLoading = false;
+                    })
+                }
             },
         },
     }

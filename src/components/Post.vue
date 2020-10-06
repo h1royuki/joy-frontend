@@ -2,9 +2,9 @@
     <div class="post">
         <div class="header">
             <div class="tags">
-                <a class="tag" v-for="(tag, index) in post._tags" v-bind:key="index" href="#">
+                <router-link class="tag" v-for="(tag, index) in post._tags" v-bind:key="index" :to="{ name: 'Tag', params: { tagId: tag }}">
                     {{ tag }}
-                </a>
+                </router-link>
             </div>
         </div>
         <div class="content">
@@ -15,30 +15,28 @@
             </post-content>
         </div>
         <div class="footer">
-            <div class="rating">
+            <div v-if="post._rating" class="rating">
                 <b-icon-lightning class="icon"/>
                 {{ post._rating }}
             </div>
-            <a class="author" href="#">
+
+            <router-link class="author" :to="{ name: 'User', params: { userId: post._author._nickname }}">
                 <img class="avatar" :src="buildAvatarURL(post._author._id)">
                 {{ post._author._nickname }}
-            </a>
-            <a class="comments-count"  href="#">
+            </router-link>
+
+            <a v-if="post._commentsCount" class="comments-count" href="#">
                 <b-icon-chat-square-text class="icon"/>
-                    {{ post._commentsCount }}
+                {{ post._commentsCount }}
             </a>
-            <div class="date">
-                <b-icon-clock class="icon"/>
-                {{ unixtimeToDate(post._date) }}
-            </div>
+
         </div>
     </div>
 </template>
 
 <script>
-    import {BIconLightning, BIconChatSquareText, BIconClock } from 'bootstrap-icons-vue';
+    import {BIconLightning, BIconChatSquareText} from 'bootstrap-icons-vue';
     import PostContent from "./Post/PostContent";
-    import unixtimeToDate from "../filters/unixtimeToDate";
     import {API_URL} from "../env";
 
     export default {
@@ -49,13 +47,11 @@
         components: {
             PostContent,
             BIconChatSquareText,
-            BIconClock,
             BIconLightning
         },
         methods: {
-            unixtimeToDate,
             buildAvatarURL(id) {
-                return 'http://' + API_URL + '/user/avatar/' + String(id);
+                return 'http://' + API_URL + '/avatar/' + String(id);
             }
         }
     }
@@ -63,10 +59,11 @@
 
 <style scoped lang="scss">
     .post {
-        border: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
         border-radius: 2px;
-        margin: 5px;
         background-color: white;
+        margin: 5px 0;
 
         .header {
             display: flex;
@@ -124,8 +121,8 @@
                     max-height: 30px;
                 }
                 .icon {
-                    font-size: 18px;
-                    padding: 0 5px;
+                    font-size: 19px;
+                    padding-right: 7px;
                 }
             }
         }

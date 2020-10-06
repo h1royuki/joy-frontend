@@ -1,13 +1,16 @@
 <template>
-    <img class="image" v-if="element._type === 'image' || element._type === 'video'" :src="generateMediaLink(element._data)" alt="">
-    <p class="text" v-else-if="element._type === 'p'">{{element._data}}</p>
-    <h3 class="h3" v-else-if="element._type === 'h3'">{{element._data}}</h3>
-    <a class="link" v-else-if="element._type === 'a'" :href="element._link">{{element._data}}</a>
+    <img class="image" v-if="element._type === 'image' || element._type === 'video'"
+         :src="generateMediaLink(element._data)" alt="">
+    <a class="link" v-else-if="element._type === 'a' && element._link" :href="element._link">{{element._data}}</a>
     <iframe class="iframe" v-else-if="element._type === 'iframe'" :src="element._data"></iframe>
+    <text-content class="text" v-else-if="element._type === 'text'" :tag="element._tag">
+        {{element._data}}
+    </text-content>
 </template>
 
 <script>
     import {API_URL} from "../../env";
+    import TextContent from "./PostContent/TextContent";
 
     export default {
         name: "PostContent",
@@ -15,9 +18,12 @@
             element: Object
         },
 
+        components: {
+            TextContent
+        },
         methods: {
             generateMediaLink(link) {
-                return link.replace(/img\d{0,2}\.joyreactor\.[a-z]*/, API_URL)
+                return link ? link.replace(/img\d{0,2}\.joyreactor\.[a-z]*/, API_URL) : '#';
             }
         }
     }
@@ -37,28 +43,20 @@
             display: inline-block;
             text-overflow:ellipsis;
             white-space:nowrap;
-        }
-
-        .iframe {
-            min-height: 325px;
-        }
-
-        .h3 {
-            font-size: 18px;
-        }
-
-        .text, .link {
-            font-size: 15px;
-        }
-
-        .h3, .text, .link {
+            font-size: 16px;
             padding: 0 10px;
         }
 
         .iframe {
+            min-height: 325px;
             width: 100%;
             border: 0;
             height: 100%;
         }
+
+        .text {
+            padding: 0 10px;
+        }
+
     }
 </style>
