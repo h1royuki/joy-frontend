@@ -1,6 +1,7 @@
 <template>
     <headr :text="'Пользователь: ' + $route.params.userId" />
-    <div v-if="page" class="user">
+
+    <div v-for="(page, index) in pages" v-bind:key="index" class="page">
         <div v-for="(post, index) in page._posts" :key="index">
             <post :post="post"></post>
         </div>
@@ -23,14 +24,15 @@
         },
         data() {
             return {
-                page: null,
+                pages: [],
+                nextPage: null,
                 isLoading: false
             }
         },
 
         watch: {
             $route() {
-                this.page = null;
+                this.pages = [];
                 this.loadPosts();
             },
         },
@@ -41,11 +43,14 @@
 
                 if (userName) {
                     this.isLoading = true;
-                    const page = this.page ? this.page._nextPage ? this.page._nextPage : 0 : 0;
-                    const url = '/user/' + userName + '/' + page;
+
+                    const nextPage = this.nextPage ? this.nextPage : 0;
+                    const url = '/user/' + userName + '/' + nextPage;
 
                     api.get(url).then(res => {
-                        this.page = res.data;
+                        this.pages.push(res.data);
+                        this.nextPage = res.data._nextPage;
+
                         this.isLoading = false;
                     }).catch(e => {
                         console.log(e);

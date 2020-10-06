@@ -1,5 +1,7 @@
 <template>
-    <div v-if="page" class="page">
+    <headr :text="'JoyMobile'" />
+
+    <div v-for="(page, index) in pages" v-bind:key="index" class="page">
         <div v-for="(post, index) in page._posts" :key="index">
             <post :post="post"></post>
         </div>
@@ -8,35 +10,41 @@
 </template>
 
 <script>
+
     import Post from '../components/Post.vue'
     import api from '../modules/api.js'
     import InfinityScroll from "../components/InfinityScroll";
+    import Headr from "../components/Headr";
 
     export default {
         name: 'Home',
         components: {
+            Headr,
             Post,
             InfinityScroll
         },
         data() {
             return {
-                page: null,
+                pages: [],
+                nextPage: null,
                 isLoading: false
             }
         },
         watch: {
             $route() {
-                this.page = null;
+                this.pagex = [];
                 this.loadPosts();
             },
         },
         methods: {
             loadPosts() {
                 this.isLoading = true;
-                const page = this.page ? this.page._nextPage ? this.page._nextPage : 0 : 0;
+                const nextPage = this.nextPage ? this.nextPage : 0;
 
-                api.get('/page/' + page).then(res => {
-                    this.page = res.data;
+                api.get('/page/' + nextPage).then(res => {
+                    this.pages.push(res.data);
+                    this.nextPage = res.data._nextPage;
+
                     this.isLoading = false;
                 }).catch(e => {
                     console.log(e);

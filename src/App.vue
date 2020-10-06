@@ -15,5 +15,6 @@
     a {
         text-decoration: none;
         color: #4f4f4f;
+        outline: none;
     }
 </style>

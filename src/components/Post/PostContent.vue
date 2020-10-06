@@ -55,7 +55,7 @@
         }
 
         .text {
-            padding: 0 10px;
+            padding: 5px 10px;
         }
 
     }

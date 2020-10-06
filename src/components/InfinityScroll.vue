@@ -30,6 +30,7 @@
             }
         },
         created() {
+            console.log(process.env);
             window.addEventListener('scroll', this.handleScroll)
             this.handler();
         }

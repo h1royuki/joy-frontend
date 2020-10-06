@@ -1,6 +1,7 @@
 <template>
     <headr :text="'Тег: ' + $route.params.tagId" />
-    <div v-if="page" class="tagsPage">
+
+    <div v-for="(page, index) in pages" v-bind:key="index" class="page">
         <div v-for="(post, index) in page._posts" :key="index">
             <post :post="post"></post>
         </div>
@@ -23,13 +24,14 @@
         },
         data() {
             return {
-                page: null,
+                pages: [],
+                nextPage: null,
                 isLoading: false
             }
         },
         watch: {
             $route() {
-                this.page = null;
+                this.pages = [];
                 this.loadPosts();
             },
         },
@@ -39,11 +41,15 @@
 
                 if(tagName) {
                     this.isLoading = true;
-                    const page = this.page ? this.page._nextPage ? this.page._nextPage : 0 : 0;
-                    const url = '/tag/' + tagName + '/' + page;
+
+                    const nextPage = this.nextPage ? this.nextPage : 0;
+                    const url = '/tag/' + tagName + '/' + nextPage;
 
                     api.get(url).then(res => {
-                        this.page = res.data;
+                        this.pages.push(res.data);
+                        console.log(res.data);
+                        this.nextPage = res.data._nextPage;
+
                         this.isLoading = false;
                     }).catch(e => {
                         console.log(e);

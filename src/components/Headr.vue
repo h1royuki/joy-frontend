@@ -19,12 +19,10 @@
                 required: true
             }
         },
-
         components: {
             BIconArrowLeftShort,
             BIconHouse
         },
-
         data() {
             return {
                 prevRoute: null
@@ -32,7 +30,6 @@
         },
         methods: {
             goBack() {
-                console.log(43543)
                 this.$router.go(-1);
             }
         },
