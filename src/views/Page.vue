@@ -1,20 +1,19 @@
 <template>
     <headr :text="'JoyMobile'" />
-
-    <div v-for="(page, index) in pages" v-bind:key="index" class="page">
-        <div v-for="(post, index) in page._posts" :key="index">
+        <div v-for="(post, index) in posts" :key="index">
             <post :post="post"></post>
         </div>
-    </div>
-    <infinity-scroll :isLoading="isLoading" :handler="loadPosts" :offset="5"></infinity-scroll>
+    <keep-alive>
+        <infinity-scroll :isLoading="isLoading" :handler="loadPosts" :offset="5"></infinity-scroll>
+    </keep-alive>
 </template>
 
 <script>
-
     import Post from '../components/Post.vue'
     import api from '../modules/api.js'
     import InfinityScroll from "../components/InfinityScroll";
     import Headr from "../components/Headr";
+    import {mapActions} from "vuex";
 
     export default {
         name: 'Home',
@@ -25,33 +24,48 @@
         },
         data() {
             return {
-                pages: [],
-                nextPage: null,
                 isLoading: false
             }
-        },
-        watch: {
-            $route() {
-                this.pagex = [];
-                this.loadPosts();
-            },
         },
         methods: {
             loadPosts() {
                 this.isLoading = true;
-                const nextPage = this.nextPage ? this.nextPage : 0;
+                const nextPage = this.lastPostPage ? this.lastPostPage : 0;
+                console.log(this.lastPostPage);
 
                 api.get('/page/' + nextPage).then(res => {
-                    this.pages.push(res.data);
-                    this.nextPage = res.data._nextPage;
+                    this.addPostPage(res.data);
+                    this.setLastPostPage(res.data._nextPage);
+
+                    console.log(this.lastPostPage);
 
                     this.isLoading = false;
-                }).catch(e => {
-                    console.log(e);
+                }).catch(() => {
                     this.isLoading = false;
                 })
             },
+            ...mapActions([
+                `addPostPage`,
+                `setLastPostPage`
+
+            ]),
         },
+        created() {
+            if(!this.posts.length) {
+                this.loadPosts();
+            }
+        },
+        computed: {
+            posts() {
+                return this.$store.getters.postPages;
+            },
+            firstPostPage() {
+                return this.$store.getters.firstPostPage;
+            },
+            lastPostPage() {
+                return this.$store.getters.lastPostPage;
+            }
+        }
     }
 </script>
 

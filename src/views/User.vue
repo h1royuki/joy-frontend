@@ -52,8 +52,7 @@
                         this.nextPage = res.data._nextPage;
 
                         this.isLoading = false;
-                    }).catch(e => {
-                        console.log(e);
+                    }).catch(() => {
                         this.isLoading = false;
                     })
                 }

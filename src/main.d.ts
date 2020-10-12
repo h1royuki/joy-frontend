@@ -28,4 +28,6 @@ declare class ContentElement {
   public _type: string;
   public _data: string | null;
   public _tag: string | null;
+  public _link: string | null;
+  public _childrens: ContentElement[] | null;
 }

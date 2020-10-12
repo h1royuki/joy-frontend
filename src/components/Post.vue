@@ -11,7 +11,6 @@
             <post-content v-for="(element, index) in post._content._elements"
                           v-bind:key="index"
                           :element="element">
-
             </post-content>
         </div>
         <div class="footer">
@@ -90,7 +89,7 @@
 
         .content {
             max-width: 100%;
-            margin-bottom: -4px;
+            padding: 0 10px;
         }
 
         .footer {

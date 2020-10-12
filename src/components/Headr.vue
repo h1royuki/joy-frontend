@@ -38,7 +38,7 @@
 
 <style scoped lang="scss">
     .header {
-        padding: 10px 15px;
+        padding: 5px 15px;
         background-color: #eee;
         margin: 0;
         border-bottom: 1px solid #ddd;
