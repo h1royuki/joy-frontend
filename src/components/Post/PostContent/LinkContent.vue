@@ -19,5 +19,6 @@
         text-decoration: underline;
         font-size: 16px;
         word-wrap: break-word;
+        color: #d7c5ff;
     }
 </style>

@@ -4,7 +4,7 @@
             <b-icon-arrow-left-short class="back"/>
         </div>
         <div class="title">{{text}}</div>
-        <router-link :to="{name: 'Page'}"><b-icon-house class="home"/></router-link>
+        <router-link :to="{name: 'Home'}"><b-icon-house class="home"/></router-link>
     </header>
 </template>
 
@@ -39,13 +39,14 @@
 <style scoped lang="scss">
     .header {
         padding: 5px 15px;
-        background-color: #eee;
+        background-color: #ffe5c5;
         margin: 0;
         border-bottom: 1px solid #ddd;
         border-radius: 0 0 2px 2px;
         display: flex;
         flex-direction: row;
         align-items: center;
+        color: #000;
 
         .prev:hover {
             cursor: pointer;

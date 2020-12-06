@@ -1,5 +1,9 @@
 <template>
-    <router-view/>
+    <keep-alive>
+        <transition>
+            <router-view/>
+        </transition>
+    </keep-alive>
 </template>
 
 <style lang="scss">
@@ -9,7 +13,8 @@
         font-family: 'Roboto', sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f7f7f7;
+        background-color: #333639;
+        color: #ddd;
     }
 
     a {

@@ -1,25 +1,21 @@
 <template>
     <headr :text="'JoyMobile'" />
-        <div v-for="(post, index) in posts" :key="index">
-            <post :post="post"></post>
-        </div>
-    <keep-alive>
-        <infinity-scroll :isLoading="isLoading" :handler="loadPosts" :offset="5"></infinity-scroll>
-    </keep-alive>
+    <page :posts='posts'/>
+        <infinity-scroll :isLoading="isLoading" :handler="loadPosts" :offset="5"/>
 </template>
 
 <script>
-    import Post from '../components/Post.vue'
     import api from '../modules/api.js'
     import InfinityScroll from "../components/InfinityScroll";
     import Headr from "../components/Headr";
     import {mapActions} from "vuex";
+    import Page from "../components/Page";
 
     export default {
         name: 'Home',
         components: {
+            Page,
             Headr,
-            Post,
             InfinityScroll
         },
         data() {
@@ -29,16 +25,17 @@
         },
         methods: {
             loadPosts() {
+                if(this.isLoading) {
+                    return;
+                }
+
                 this.isLoading = true;
                 const nextPage = this.lastPostPage ? this.lastPostPage : 0;
-                console.log(this.lastPostPage);
+                console.log(nextPage);
 
                 api.get('/page/' + nextPage).then(res => {
                     this.addPostPage(res.data);
                     this.setLastPostPage(res.data._nextPage);
-
-                    console.log(this.lastPostPage);
-
                     this.isLoading = false;
                 }).catch(() => {
                     this.isLoading = false;
@@ -51,7 +48,7 @@
             ]),
         },
         created() {
-            if(!this.posts.length) {
+            if (Number(this.posts.length) === 0) {
                 this.loadPosts();
             }
         },

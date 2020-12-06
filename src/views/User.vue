@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import Post from '../components/Post.vue'
+    import Post from '../components/Post/Post.vue'
     import api from '../modules/api.js'
     import InfinityScroll from "../components/InfinityScroll";
     import Headr from "../components/Headr";
@@ -36,7 +36,10 @@
                 this.loadPosts();
             },
         },
+        created() {
+            this.loadPosts();
 
+        },
         methods: {
             loadPosts() {
                 const userName = this.$route.params.userId;

@@ -9,6 +9,7 @@ declare class Page {
 }
 
 declare class Post {
+  public _id: number;
   public _content: Content[];
   public _rating: Number;
   public _commentsCount: Number;

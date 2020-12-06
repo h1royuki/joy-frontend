@@ -1,4 +1,4 @@
-<template>
+<template clas="3242">
     <image-content class="image" v-if="element._type === 'image' || element._type === 'video'"
                    :link="element._data">
     </image-content>

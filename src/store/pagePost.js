@@ -6,8 +6,21 @@ export default {
   },
   mutations: {
     addPostPage(state, page) {
-      state.posts.push(...page._posts);
+      const uniquePosts = [];
+
+      page._posts.map(postFromBack => {
+        const duplicatedPost = state.posts.filter(
+          post => post._id === postFromBack._id
+        );
+
+        if (duplicatedPost.length === 0) {
+          uniquePosts.push(postFromBack);
+        }
+      });
+
+      state.posts.push(...uniquePosts);
     },
+
     setLastPostPage(state, pageNumber) {
       state.lastPostPage = pageNumber;
     },
