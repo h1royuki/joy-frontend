@@ -46,7 +46,7 @@
     .image-loading {
         display: flex;
         width: calc(100% + 20px);
-        min-height: 200px;
+        min-height: 250px;
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -54,17 +54,17 @@
         .icon {
             display: inline;
             font-size: 50px;
-            animation: loading 1300ms infinite;
+            animation: image-loading 1300ms infinite;
 
-            @keyframes loading {
+            @keyframes image-loading {
                 0% {
-                    opacity: 100%;
+                    opacity: 80%;
                 }
                 50% {
-                    opacity: 50%;
+                    opacity: 40%;
                 }
                 100% {
-                    opacity: 100%
+                    opacity: 80%
                 }
             }
         }

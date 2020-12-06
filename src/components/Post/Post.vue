@@ -8,29 +8,29 @@
                     </router-link>
                 </div>
             </div>
-            <div class="content" :style="{height: long ? '250px' : '100%'}" ref="postRef">
-                <post-content v-for="(element, index) in post._content._elements"
-                              v-bind:key="index"
-                              :element="element"/>
+        <div class="content" :style="{height: long ? '250px' : '100%'}" ref="postRef">
+            <post-content v-for="(element, index) in post._content._elements"
+                          v-bind:key="index"
+                          :element="element"/>
+        </div>
+        <div class="expand-wrapper" v-if="long" v-on:click="expand">
+            <div class="expand">▼ Expand</div>
+        </div>
+        <div class="footer">
+            <div v-if="post._rating" class="rating">
+                <b-icon-lightning class="icon"/>
+                {{ post._rating }}
             </div>
-            <div class="expand" v-if="long" v-on:click="expand">
-                ▼ Expand
-            </div>
-            <div class="footer">
-                <div v-if="post._rating" class="rating">
-                    <b-icon-lightning class="icon"/>
-                    {{ post._rating }}
-                </div>
 
-                <router-link class="author" :to="{ name: 'User', params: { userId: post._author._nickname }}">
-                    <img class="avatar" :src="avatarURL">
-                    {{ post._author._nickname }}
+            <router-link class="author" :to="{ name: 'User', params: { userId: post._author._nickname }}">
+                <img class="avatar" :src="avatarURL">
+                {{ post._author._nickname }}
                 </router-link>
 
-                <a v-if="post._commentsCount" class="comments-count" href="#">
-                    <b-icon-chat-square-text class="icon"/>
-                    {{ post._commentsCount }}
-                </a>
+            <a class="comments-count" href="#">
+                <b-icon-chat-square-text class="icon"/>
+                {{ post._commentsCount }}
+            </a>
             </div>
     </div>
 </template>
@@ -59,13 +59,12 @@
             buildAvatarURL(id) {
                 return 'http://' + API_URL + '/avatar/' + String(id);
             },
-
             expand() {
                 this.long = false;
             }
         },
         mounted() {
-            if (this.$refs.postRef.clientHeight > 600) {
+            if (this.$refs.postRef.clientHeight > 750) {
                 this.long = true;
             }
         },
@@ -114,17 +113,27 @@
             overflow: hidden;
         }
 
-        .expand {
-            height: 100%;
-            text-align: center;
-            padding: 10px;
-            background-color: #ffe5c5;
-            color: #191c1e;
+        .expand-wrapper {
+            display: flex;
+            width: 100%;
+            position: relative;
+            margin-top: -40px;
+            justify-content: center;
+            align-items: center;
 
-            &:hover {
-                cursor: pointer;
+            .expand {
+                text-align: center;
+                padding: 7px 10px;
+                background-color: #333639;
+                border-radius: 50px;
+                margin-bottom: 7px;
+                box-shadow: 0px 3px 4px 0px #00000091;
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
+
 
         .footer {
             padding: 0;
