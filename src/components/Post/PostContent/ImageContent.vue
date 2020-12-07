@@ -53,19 +53,6 @@
 
         .icon {
             font-size: 70px;
-            animation: image-loading 1300ms infinite;
-
-            @keyframes image-loading {
-                0% {
-                    opacity: 80%;
-                }
-                50% {
-                    opacity: 40%;
-                }
-                100% {
-                    opacity: 80%
-                }
-            }
         }
     }
 </style>
