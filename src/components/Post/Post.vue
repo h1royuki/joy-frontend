@@ -14,24 +14,24 @@
                           :element="element"/>
         </div>
         <div class="expand-wrapper" v-if="long" v-on:click="expand">
-            <div class="expand">▼ Expand</div>
+            <div class="expand">Expand</div>
         </div>
         <div class="footer">
-            <div v-if="post._rating" class="rating">
-                <b-icon-lightning class="icon"/>
-                {{ post._rating }}
-            </div>
-
             <router-link class="author" :to="{ name: 'User', params: { userId: post._author._nickname }}">
                 <img class="avatar" :src="avatarURL">
                 {{ post._author._nickname }}
-                </router-link>
+            </router-link>
 
             <a class="comments-count" href="#">
                 <b-icon-chat-square-text class="icon"/>
                 {{ post._commentsCount }}
             </a>
+
+            <div v-if="post._rating" class="rating">
+                <b-icon-lightning class="icon"/>
+                {{ post._rating }}
             </div>
+        </div>
     </div>
 </template>
 
@@ -93,16 +93,17 @@
             .tags {
                 display: flex;
                 flex-direction: row;
-                max-width: 100%;
-                flex-wrap: wrap;
                 padding: 5px 0;
                 font-size: 12px;
+                overflow: auto;
+                white-space: nowrap;
 
                 .tag {
-                    background: #ffe5c5;
+                    background: #404040;
                     padding: 5px 10px;
                     border-radius: 15px;
                     margin: 5px 5px;
+                    color: #ddd;
                 }
             }
         }

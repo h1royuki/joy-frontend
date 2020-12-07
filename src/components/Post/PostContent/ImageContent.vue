@@ -52,8 +52,7 @@
         text-align: center;
 
         .icon {
-            display: inline;
-            font-size: 50px;
+            font-size: 70px;
             animation: image-loading 1300ms infinite;
 
             @keyframes image-loading {

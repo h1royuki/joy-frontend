@@ -3,7 +3,7 @@
                    :link="element._data">
     </image-content>
 
-    <link-content class="link" v-else-if="element._type === 'link' && element._link" :link="element._type">
+    <link-content class="link" v-else-if="element._type === 'link' && element._link" :link="element._link">
         {{element._data}}
     </link-content>
 
