@@ -6,7 +6,6 @@
 </template>
 
 <script>
-    import {API_URL} from "../../../env";
     import {BIconImage} from 'bootstrap-icons-vue';
 
     export default {
@@ -27,7 +26,7 @@
         },
         methods: {
             generateMediaLink(link) {
-                return link ? link.replace(/img\d{0,2}\.joyreactor\.[a-z]*/, API_URL) : '#';
+                return link ? link : '#';
             },
             loaded() {
                 this.isLoading = false;
