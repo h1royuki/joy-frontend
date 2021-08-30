@@ -1,6 +1,9 @@
-<template clas="3242">
+<template>
     <image-content class="image" v-if="element._type === 'image' || element._type === 'video'"
-                   :link="element._data">
+                    :link="element._data"
+                    :width="element._width"
+                    :height="element._height"
+    >
     </image-content>
 
     <link-content class="link" v-else-if="element._type === 'link' && element._link" :link="element._link">

@@ -31,4 +31,6 @@ declare class ContentElement {
   public _tag: string | null;
   public _link: string | null;
   public _childrens: ContentElement[] | null;
+  public _width: number | null;
+  public _height: number | null;
 }

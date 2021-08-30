@@ -1,23 +1,30 @@
 <template>
-    <img v-show="!isLoading" class="image" :src="generateMediaLink(link)" @load="loaded">
-    <div v-show="isLoading" class="image-loading">
-        <b-icon-image class="icon"/>
-    </div>
+    <img
+        :width="this.width"
+        :height="this.height"
+        class="image"
+        :src="generateMediaLink(link)" @load="loaded
+">
 </template>
 
 <script>
-    import {BIconImage} from 'bootstrap-icons-vue';
-
     export default {
         name: "ImageContent",
         components: {
-            BIconImage
         },
         props: {
             link: {
                 required: true,
                 type: String
-            }
+            },
+          height: {
+            required: true,
+            type: Number
+          },
+          width: {
+            required: true,
+            type: Number
+          }
         },
         data() {
             return {
@@ -38,6 +45,7 @@
 <style scoped lang="scss">
     .image {
         width: calc(100% + 20px);
+        height: auto;
         padding: 0;
         margin-left: -10px;
     }
